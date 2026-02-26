@@ -20,5 +20,6 @@ Route::middleware(['auth', 'tenant'])->group(function () {
 
 Route::get('logout', function () {
     auth()->logout();
+
     return redirect()->route('login');
 });

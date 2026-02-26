@@ -18,6 +18,10 @@ class Tenant extends Model
         'name',
     ];
 
+    protected $casts = [
+        'credit_balance' => 'float',
+    ];
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
