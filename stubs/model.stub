@@ -4,7 +4,9 @@ namespace {{ namespace }};
 
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\TenantScope;
 
+#[ScopedBy(TenantScope::class)]
 class {{ class }} extends Model
 {
     {{ factory }}
