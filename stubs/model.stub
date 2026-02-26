@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use App\Models\Scopes\TenantScope;
 
 #[ScopedBy(TenantScope::class)]

@@ -17,3 +17,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'tenant'])->group(function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
 });
+
+Route::get('logout', function () {
+    auth()->logout();
+    return redirect()->route('login');
+});
