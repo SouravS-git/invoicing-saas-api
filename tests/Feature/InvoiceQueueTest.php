@@ -1,6 +1,6 @@
 <?php
 
-use App\Actions\CreateInvoiceAction;
+use App\Actions\Invoice\CreateInvoiceAction;
 use App\Jobs\GenerateInvoicePdf;
 use App\Models\Tenant;
 use App\Models\User;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire;
+namespace App\Livewire\Credits;
 
 use App\Services\CreditService;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class TopUp extends Component
 
     public function render()
     {
-        return view('livewire.top-up');
+        return view('livewire.credits.top-up');
     }
 
     public function addBalance(CreditService $creditService): void

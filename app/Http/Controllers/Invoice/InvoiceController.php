@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Invoice;
 
+use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 

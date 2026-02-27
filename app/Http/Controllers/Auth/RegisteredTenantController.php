@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\RegisterTenantAction;
+use App\Actions\Auth\RegisterTenantAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

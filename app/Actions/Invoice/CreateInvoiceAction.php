@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Actions;
+namespace App\Actions\Invoice;
 
 use App\Jobs\GenerateInvoicePdf;
 use App\Models\Invoice;

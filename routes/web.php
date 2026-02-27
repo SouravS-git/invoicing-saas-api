@@ -1,11 +1,11 @@
 <?php
 
-use App\Livewire\Invoices\Index;
-use App\Livewire\Invoices\Create;
-use App\Livewire\TopUp;
 use App\Http\Controllers\Auth\RegisteredTenantController;
 use App\Http\Controllers\Auth\SessionController;
+use App\Livewire\Credits\TopUp;
 use App\Livewire\Dashboard;
+use App\Livewire\Invoices\Create;
+use App\Livewire\Invoices\Index;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
