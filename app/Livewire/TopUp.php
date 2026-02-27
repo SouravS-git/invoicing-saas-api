@@ -24,7 +24,7 @@ class TopUp extends Component
         ]);
 
         $tenant = Auth::user()->tenant;
-        $creditService->addCredits($tenant, $this->validated('amount'));
+        $creditService->addCredits($tenant, (float) $this->amount);
 
         session()->flash('success', '{$this->amount} credits added to your account.');
 

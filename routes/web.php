@@ -1,25 +1,28 @@
 <?php
 
+use App\Livewire\Invoices\Index;
+use App\Livewire\Invoices\Create;
+use App\Livewire\TopUp;
 use App\Http\Controllers\Auth\RegisteredTenantController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => view('welcome'));
-
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredTenantController::class, 'create']);
-    Route::post('register', [RegisteredTenantController::class, 'store'])->name('register');
-    Route::get('login', [SessionController::class, 'create'])->name('login');
-    Route::post('login', [SessionController::class, 'store']);
+    Route::get('/', fn () => view('home'))->name('home');
+    Route::get('/register', [RegisteredTenantController::class, 'create'])->name('register.create');
+    Route::post('/register', [RegisteredTenantController::class, 'store'])->name('register.store');
+    Route::get('/login', [SessionController::class, 'create'])->name('login.create');
+    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });
 
 Route::middleware(['auth', 'tenant'])->group(function () {
-    Route::get('dashboard', Dashboard::class)->name('dashboard');
-});
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-Route::get('logout', function () {
-    auth()->logout();
+    Route::get('/invoices', Index::class)->name('invoices.index');
+    Route::get('/invoices/create', Create::class)->name('invoices.create');
 
-    return redirect()->route('login');
+    Route::get('/billing', TopUp::class)->name('billing');
+
+    Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 });

@@ -35,11 +35,14 @@ class RegisteredTenantController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', 'min:8'],
+            'password_confirmation' => ['required'],
         ]);
 
         $user = $action->execute($validatedData);
 
         Auth::login($user);
+
+        $request->session()->regenerate();
 
         return redirect()->route('dashboard');
     }
