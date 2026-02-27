@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
+use App\Jobs\GenerateInvoicePdf;
 use App\Models\Invoice;
 use App\Services\CreditService;
 use Exception;
@@ -24,10 +25,14 @@ class CreateInvoiceAction
 
         if ($this->creditService->deductCredits($tenant, $fee)) {
 
-            return $tenant->invoices()->create([
+            $invoice = $tenant->invoices()->create([
                 'invoice_number' => $data['invoice_number'],
                 'total_amount' => $data['total_amount'],
             ]);
+
+            GenerateInvoicePdf::dispatch($invoice);
+
+            return $invoice;
 
         }
         throw new Exception('Insufficient credits');
