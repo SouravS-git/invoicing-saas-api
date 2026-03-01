@@ -7,7 +7,8 @@ namespace App\Jobs;
 use App\Models\Invoice;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Browsershot\Browsershot;
 
 class GenerateInvoicePdf implements ShouldQueue
 {
@@ -26,14 +27,22 @@ class GenerateInvoicePdf implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info('Generating PDF for invoice: '.$this->invoice->invoice_number);
 
-        // TODO: Generate PDF (Now simulating)
-        sleep(3);
+        $html = view('pdfs.invoice', ['invoice' => $this->invoice])->render();
 
-        $this->invoice->update([
-            // 'status' => 'sent',
-            'pdf_path' => 'invoices/{$this->invoice->id}.pdf',
-        ]);
+        $pdfContent = Browsershot::html($html)
+            ->paperSize(58, 1000, 'mm')
+            ->margins(0, 0, 0, 0)
+            ->showBackground()
+            ->deviceScaleFactor(2)
+            ->pdf();
+
+        $path = "invoices/" . $this->invoice->tenant_id . "/" . now()->format('Y-m-d') . "/" . $this->invoice->invoice_number . ".pdf";
+
+        if(Storage::disk('s3')->put($path, $pdfContent)){
+            $this->invoice->update([
+                'pdf_path' => $path,
+            ]);
+        }
     }
 }

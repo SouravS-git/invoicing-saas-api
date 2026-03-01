@@ -26,3 +26,9 @@ Route::middleware(['auth', 'tenant'])->group(function () {
 
     Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
+
+Route::get('/test', function () {
+    return view('pdfs.invoice', [
+        'invoice' => \App\Models\Invoice::first(),
+    ]);
+});

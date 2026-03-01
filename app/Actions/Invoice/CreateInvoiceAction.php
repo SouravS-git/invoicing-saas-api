@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Invoice;
 
-use App\Jobs\GenerateInvoicePdf;
+use App\Events\InvoiceCreated;
 use App\Models\Invoice;
 use App\Models\Tenant;
 use App\Services\CreditService;
@@ -47,7 +47,7 @@ class CreateInvoiceAction
                 'total_amount' => $data['total_amount'],
             ]);
 
-            GenerateInvoicePdf::dispatch($invoice)->afterCommit();
+            InvoiceCreated::dispatch($invoice);
 
             return $invoice;
 

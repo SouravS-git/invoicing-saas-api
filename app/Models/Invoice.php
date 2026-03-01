@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 #[ScopedBy(TenantScope::class)]
 class Invoice extends Model
@@ -46,5 +47,12 @@ class Invoice extends Model
             $invoice->tenant_id = auth()->user()->tenant_id;
             $invoice->created_by = auth()->id();
         });
+    }
+
+    public function generateTemporaryUrl(): string
+    {
+        return Storage::disk('s3')->temporaryUrl(
+            $this->pdf_path, now()->addMinutes(30)
+        );
     }
 }
