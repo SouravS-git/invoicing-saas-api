@@ -9,7 +9,7 @@ test('creating an invoice dispatches a PDF generation job', function () {
     Queue::fake(); // Don't actually run the job
 
     $tenant = Tenant::factory()->create([
-        'credit_balance' => 10.00
+        'credit_balance' => 10.00,
     ]);
 
     $user = User::factory()->for($tenant, 'tenant')->create();
@@ -19,7 +19,7 @@ test('creating an invoice dispatches a PDF generation job', function () {
     $action = app(CreateInvoiceAction::class);
     $action->execute([
         'invoice_number' => '12345',
-        'total_amount' => 100
+        'total_amount' => 100,
     ]);
 
     // Assert the job was pushed to Redis

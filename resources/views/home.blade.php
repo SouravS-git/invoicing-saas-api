@@ -21,7 +21,7 @@
             </p>
 
             <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="{{ route('register.create') }}" class="rounded-xl bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-500 transition-all duration-200">
+                <a href="{{ route('register') }}" class="rounded-xl bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 hover:bg-emerald-500 transition-all duration-200">
                     Register Here
                 </a>
             </div>

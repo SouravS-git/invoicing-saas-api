@@ -19,13 +19,32 @@ class Invoice extends Model
 
     protected $fillable = [
         'invoice_number',
-        'total_amount',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'billing_address',
+        'invoice_date',
+        'payment_method',
         'status',
+        'total_amount',
         'pdf_path',
     ];
 
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function (Invoice $invoice) {
+            $invoice->tenant_id = auth()->user()->tenant_id;
+            $invoice->created_by = auth()->id();
+        });
     }
 }

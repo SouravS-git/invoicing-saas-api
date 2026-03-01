@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Invoice;
@@ -24,14 +26,14 @@ class GenerateInvoicePdf implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info("Generating PDF for invoice: " . $this->invoice->invoice_number);
+        Log::info('Generating PDF for invoice: '.$this->invoice->invoice_number);
 
         // TODO: Generate PDF (Now simulating)
         sleep(3);
 
         $this->invoice->update([
-            //'status' => 'sent',
-            'pdf_path' => 'invoices/{$this->invoice->id}.pdf'
+            // 'status' => 'sent',
+            'pdf_path' => 'invoices/{$this->invoice->id}.pdf',
         ]);
     }
 }

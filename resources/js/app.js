@@ -1,4 +1,6 @@
 import './bootstrap';
-import Alpine from 'alpinejs'
-window.Alpine = Alpine
-Alpine.start()
+
+// Checking if Alpine (supplied with livewire) is running
+document.addEventListener('alpine:init', (event) => {
+    console.log('Alpine:init');
+});

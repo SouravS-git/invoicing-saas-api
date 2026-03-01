@@ -44,6 +44,8 @@ class RegisteredTenantController extends Controller
 
         $request->session()->regenerate();
 
+        // TODO: Need to notify the tenant after registration
+
         return redirect()->route('dashboard');
     }
 

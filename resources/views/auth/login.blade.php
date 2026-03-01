@@ -23,7 +23,7 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
             <div class="bg-slate-900 py-8 px-4 shadow-2xl border border-slate-800 rounded-2xl sm:px-10 backdrop-blur-sm">
-                <form class="space-y-5" action="{{ route('login.store') }}" method="POST">
+                <form class="space-y-5" action="{{ route('login') }}" method="POST">
                     @csrf
 
                     <x-form-field label="Email" type="email" name="email" placeholder="Enter registered email id*" required autofocus />
@@ -39,7 +39,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-slate-500">
                         Don't have an account?
-                        <a href="{{ route('register.create') }}" class="font-semibold text-emerald-400 hover:text-emerald-300 transition">Register here</a>
+                        <a href="{{ route('register') }}" class="font-semibold text-emerald-400 hover:text-emerald-300 transition">Register here</a>
                     </p>
                 </div>
             </div>

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Exceptions\InsufficientBalanceException;
 use App\Models\Tenant;
-use Illuminate\Support\Facades\DB;
 
 class CreditService
 {
@@ -14,22 +14,15 @@ class CreditService
         $tenant->increment('credit_balance', $amount);
     }
 
-    public function deductCredits(Tenant $tenant, float $amount): bool
+    /**
+     * @throws InsufficientBalanceException
+     */
+    public function deductCredits(Tenant $tenant, float $amount): void
     {
-        return DB::transaction(function () use ($tenant, $amount): bool {
+        if ($tenant->credit_balance < $amount) {
+            throw new InsufficientBalanceException;
+        }
 
-            $currentBalance = DB::table('tenants')
-                ->lockForUpdate()
-                ->find($tenant->id)->credit_balance;
-
-            if ($currentBalance < $amount) {
-                return false;
-            }
-
-            $tenant->decrement('credit_balance', $amount);
-
-            return true;
-
-        });
+        $tenant->decrement('credit_balance', $amount);
     }
 }

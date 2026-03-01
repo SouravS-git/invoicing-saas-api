@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,8 +20,17 @@ class InvoiceFactory extends Factory
     {
         return [
             'tenant_id' => Tenant::factory(),
-            'invoice_number' => $this->faker->randomNumber(5),
-            'total_amount' => $this->faker->randomFloat(2, 100, 1000),
+            'created_by' => User::factory(),
+            'invoice_number' => $this->faker->unique()->numerify('INV-####'),
+            'invoice_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'customer_name' => $this->faker->name(),
+            'customer_email' => $this->faker->email(),
+            'customer_phone' => $this->faker->phoneNumber(),
+            'billing_address' => $this->faker->address(),
+            'total_amount' => $this->faker->randomFloat(2, 1000, 100000),
+            'payment_method' => 'cash',
+            'status' => 'draft',
+            'pdf_path' => $this->faker->url(),
         ];
     }
 }

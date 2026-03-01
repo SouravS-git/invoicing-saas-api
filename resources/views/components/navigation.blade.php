@@ -7,8 +7,12 @@
                     <path fill-rule="evenodd" d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
                 </svg>
             </div>
-            <span class="text-white font-bold tracking-tight text-lg">
-                <a href="{{ route('home') }}">{{ config('app.name') }}</a>
+            <span class="text-white font-bold tracking-tight text-md">
+                @auth
+                    <a href="{{ route('home') }}">{{ Auth::user()->tenant->name }}</a>
+                @else
+                    <a href="{{ route('home') }}">{{ config('app.name') }}</a>
+                @endauth
             </span>
         </div>
 
@@ -20,14 +24,20 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="{{ route('login.create') }}" class="text-sm font-medium text-slate-300 hover:text-white">Login</a>
-                <a href="{{ route('register.create') }}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition shadow-lg shadow-emerald-900/20">
+                <a href="{{ route('login') }}" class="text-sm font-medium text-slate-300 hover:text-white">Login</a>
+                <a href="{{ route('register') }}" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition shadow-lg shadow-emerald-900/20">
                     Signup for free
                 </a>
             </div>
         @endguest
 
         @auth
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a wire:navigate href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Dashboard</a>
+                <a wire:navigate href="{{ route('invoices.index') }}" class="{{ request()->routeIs('invoices.index') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Invoices</a>
+                <a wire:navigate href="{{ route('billing') }}" class="{{ request()->routeIs('billing') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Credits</a>
+            </div>
+
             <div class="flex items-center gap-4">
                 <form id="logout_form" method="POST" action="{{ route('logout') }}" hidden="">
                     @csrf

@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('home'))->name('home');
-    Route::get('/register', [RegisteredTenantController::class, 'create'])->name('register.create');
-    Route::post('/register', [RegisteredTenantController::class, 'store'])->name('register.store');
-    Route::get('/login', [SessionController::class, 'create'])->name('login.create');
-    Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+    Route::get('/register', [RegisteredTenantController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredTenantController::class, 'store']);
+    Route::get('/login', [SessionController::class, 'create'])->name('login');
+    Route::post('/login', [SessionController::class, 'store']);
 });
 
 Route::middleware(['auth', 'tenant'])->group(function () {

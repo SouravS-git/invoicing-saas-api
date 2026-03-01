@@ -1,8 +1,8 @@
 <div class="bg-gray-50 min-h-screen">
-    <div class="bg-white border-b border-gray-200">
+    <div class="bg-white border-b border-gray-200 py-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav class="flex text-xs font-medium text-gray-500 items-center gap-2">
-                <a href="#" class="hover:text-emerald-600 transition">Dashboard</a>
+                <a wire:navigate href="{{ route('dashboard') }}" class="hover:text-emerald-600 transition">Dashboard</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -11,14 +11,19 @@
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Invoices</h1>
-                <p class="text-sm text-gray-500 mt-1">Manage billing for your business.</p>
-            </div>
+    {{--TODO: Need to show in a toaster--}}
+    @session('success')
+        {{ session('success') }}
+    @endsession
 
-            <a href="{{ route('invoices.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/10 hover:bg-emerald-500 hover:-translate-y-0.5 transition-all active:scale-95">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <div class="mb-10 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Invoices</h1>
+                <p class="text-sm text-gray-500 mt-1 font-medium">Manage billing for your business.</p>
+            </div>
+            <a wire:navigate href="{{ route('invoices.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/10 hover:bg-emerald-500 hover:-translate-y-0.5 transition-all active:scale-95">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
@@ -26,16 +31,17 @@
             </a>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden mb-4">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                     <tr class="bg-gray-50/50 border-b border-gray-200">
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Invoice Number</th>
-                        {{--<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Client</th>--}}
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Status</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Customer</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Contact</th>
                         <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Amount</th>
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 text-right">Action</th>
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">Status</th>
+                        {{--<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 text-right">Action</th>--}}
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -43,38 +49,42 @@
                     <tr class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4">
                             <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">{{ $invoice->invoice_number }}</span>
-                            <p class="text-xs text-gray-400">Issued {{ $invoice->created_at }}</p>
+                            <p class="text-xs text-gray-400">Issued On: {{ $invoice->invoice_date }}</p>
                         </td>
-                        {{--<td class="px-6 py-4">
+                        <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
-                                <div class="h-9 w-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 font-bold border border-slate-200">
-                                    JD
-                                </div>
-                                <span class="text-sm font-medium text-gray-700">John Doe Corp</span>
+                                <span class="text-sm font-medium text-gray-700">{{ $invoice->customer_name }}</span>
                             </div>
-                        </td>--}}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">{{ $invoice->billing_address }}</span>
+                            <p class="text-xs text-gray-400">Phone - {{ $invoice->customer_phone }}</p>
+                            <p class="text-xs text-gray-400">Email - {{ $invoice->customer_email }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Rs. {{ $invoice->total_amount }}</span>
+                            <p class="text-xs text-gray-400">Payment Mode - {{ $invoice->payment_method }}</p>
+                        </td>
                         <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
                                     {{ $invoice->status }}
                                 </span>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="text-sm font-bold text-gray-900">{{ $invoice->total_amount }}</span>
-                        </td>
-                        <td class="px-6 py-4 text-right">
+                        {{--<td class="px-6 py-4 text-right">
                             <button class="p-2 text-gray-400 hover:text-emerald-600 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                             </button>
                             <button class="p-2 text-gray-400 hover:text-emerald-600 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             </button>
-                        </td>
+                        </td>--}}
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
+        {{ $invoices->links() }}
     </main>
 </div>

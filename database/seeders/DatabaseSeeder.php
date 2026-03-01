@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
             'credit_balance' => 10,
         ]);
 
-        $users = User::factory()->for($tenant, 'tenant')->create([
+        $user = User::factory()->for($tenant, 'tenant')->create([
             'name' => 'Sourav Sarkar',
             'email' => 'isourav2018@gmail.com',
             'password' => '12345678',
         ]);
 
-        $invoices = Invoice::factory(10)->for($tenant, 'tenant')->create();
+        $invoices = Invoice::factory(10)->for($tenant, 'tenant')->for($user, 'creator')->create();
 
         User::factory(10)->create();
     }
