@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Invoice;
 use App\Http\Controllers\Auth\RegisteredTenantController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Livewire\Credits\TopUp;
@@ -27,8 +28,6 @@ Route::middleware(['auth', 'tenant'])->group(function () {
     Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
 
-Route::get('/test', function () {
-    return view('pdfs.invoice', [
-        'invoice' => \App\Models\Invoice::first(),
-    ]);
-});
+Route::get('/test', fn() => view('pdfs.invoice', [
+    'invoice' => Invoice::first(),
+]));

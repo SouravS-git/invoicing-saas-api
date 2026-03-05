@@ -16,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "^3.32",
         "livewire/livewire": "^3.5",
         "predis/predis": "^3.4",
+        "razorpay/razorpay": "^2.9",
         "spatie/browsershot": "^5.2"
     },
     "require-dev": {

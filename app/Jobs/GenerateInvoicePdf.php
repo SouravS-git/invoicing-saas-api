@@ -37,9 +37,9 @@ class GenerateInvoicePdf implements ShouldQueue
             ->deviceScaleFactor(2)
             ->pdf();
 
-        $path = "invoices/" . $this->invoice->tenant_id . "/" . now()->format('Y-m-d') . "/" . $this->invoice->invoice_number . ".pdf";
+        $path = 'invoices/'.$this->invoice->tenant_id.'/'.now()->format('Y-m-d').'/'.$this->invoice->invoice_number.'.pdf';
 
-        if(Storage::disk('s3')->put($path, $pdfContent)){
+        if (Storage::disk('s3')->put($path, $pdfContent)) {
             $this->invoice->update([
                 'pdf_path' => $path,
             ]);

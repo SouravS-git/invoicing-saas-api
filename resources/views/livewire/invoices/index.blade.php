@@ -46,7 +46,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                     @foreach($invoices as $invoice)
-                    <tr class="hover:bg-slate-50/80 transition-colors group">
+                    <tr wire:key="{{ $invoice->id }}" class="hover:bg-slate-50/80 transition-colors group">
                         <td class="px-6 py-4">
                             <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">{{ $invoice->invoice_number }}</span>
                             <p class="text-xs text-gray-400">Issued On: {{ $invoice->invoice_date }}</p>

@@ -9,9 +9,9 @@
             </div>
             <span class="text-white font-bold tracking-tight text-md">
                 @auth
-                    <a href="{{ route('home') }}">{{ Auth::user()->tenant->name }}</a>
+                    <a wire:navigate href="{{ route('home') }}">{{ Auth::user()->tenant->name }}</a>
                 @else
-                    <a href="{{ route('home') }}">{{ config('app.name') }}</a>
+                    <a wire:navigate href="{{ route('home') }}">{{ config('app.name') }}</a>
                 @endauth
             </span>
         </div>
