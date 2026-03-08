@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('billing_address')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->string('payment_method')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status');
             $table->string('pdf_path')->nullable();
             $table->timestamps();
             $table->unique(['tenant_id', 'invoice_number']);

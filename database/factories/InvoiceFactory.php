@@ -29,7 +29,7 @@ class InvoiceFactory extends Factory
             'billing_address' => $this->faker->address(),
             'total_amount' => $this->faker->randomFloat(2, 1000, 100000),
             'payment_method' => 'cash',
-            'status' => 'draft',
+            'status' => 'due',
             'pdf_path' => $this->faker->url(),
         ];
     }

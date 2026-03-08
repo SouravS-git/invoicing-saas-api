@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Scopes\TenantScope;
 use Database\Factories\InvoiceFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
@@ -29,6 +30,10 @@ class Invoice extends Model
         'status',
         'total_amount',
         'pdf_path',
+    ];
+
+    protected $casts = [
+        'status' => InvoiceStatus::class,
     ];
 
     public function tenant(): BelongsTo

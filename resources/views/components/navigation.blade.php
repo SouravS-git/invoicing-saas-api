@@ -8,11 +8,7 @@
                 </svg>
             </div>
             <span class="text-white font-bold tracking-tight text-md">
-                @auth
-                    <a wire:navigate href="{{ route('home') }}">{{ Auth::user()->tenant->name }}</a>
-                @else
-                    <a wire:navigate href="{{ route('home') }}">{{ config('app.name') }}</a>
-                @endauth
+                <a wire:navigate href="{{ route('home') }}">{{ config('app.name') }}</a>
             </span>
         </div>
 
@@ -35,7 +31,7 @@
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
                 <a wire:navigate href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Dashboard</a>
                 <a wire:navigate href="{{ route('invoices.index') }}" class="{{ request()->routeIs('invoices.index') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Invoices</a>
-                <a wire:navigate href="{{ route('billing') }}" class="{{ request()->routeIs('billing') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Credits</a>
+                <a wire:navigate href="{{ route('credits') }}" class="{{ request()->routeIs('billing') ? 'text-emerald-400' : '' }} hover:text-emerald-400 transition">Credits</a>
             </div>
 
             <div class="flex items-center gap-4">

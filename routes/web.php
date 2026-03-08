@@ -23,11 +23,11 @@ Route::middleware(['auth', 'tenant'])->group(function () {
     Route::get('/invoices', Index::class)->name('invoices.index');
     Route::get('/invoices/create', Create::class)->name('invoices.create');
 
-    Route::get('/billing', TopUp::class)->name('billing');
+    Route::get('/credits', TopUp::class)->name('credits');
 
     Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 });
 
-Route::get('/test', fn() => view('pdfs.invoice', [
+/*Route::get('/test', fn() => view('pdfs.invoice', [
     'invoice' => Invoice::first(),
-]));
+]));*/

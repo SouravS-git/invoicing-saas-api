@@ -62,14 +62,21 @@
                             <p class="text-xs text-gray-400">Email - {{ $invoice->customer_email }}</p>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">Rs. {{ $invoice->total_amount }}</span>
+                            <span class="text-sm font-bold text-gray-900 group-hover:text-emerald-600 transition-colors">₹{{ $invoice->total_amount }}</span>
                             <p class="text-xs text-gray-400">Payment Mode - {{ $invoice->payment_method }}</p>
                         </td>
                         <td class="px-6 py-4">
+                            @if($invoice->status->value === 'due')
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5 animate-pulse"></span>
+                                    {{ $invoice->status->label() }}
+                                </span>
+                            @elseif($invoice->status->value === 'paid')
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
-                                    {{ $invoice->status }}
+                                    {{ $invoice->status->label() }}
                                 </span>
+                            @endif
                         </td>
                         {{--<td class="px-6 py-4 text-right">
                             <button class="p-2 text-gray-400 hover:text-emerald-600 transition-colors">

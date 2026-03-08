@@ -120,7 +120,7 @@
         <tr>
             <td class="label">Status</td>
             <td class="value">
-                <span class="status">{{ strtoupper($invoice->status) }}</span>
+                <span class="status">{{ strtoupper($invoice->status->label()) }}</span>
             </td>
         </tr>
     </table>

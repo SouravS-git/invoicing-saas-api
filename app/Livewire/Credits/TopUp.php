@@ -22,7 +22,7 @@ class TopUp extends Component
     public function render()
     {
         return view('livewire.credits.top-up', [
-            'transactions' => Payment::where('tenant_id', auth()->user()->tenant_id)->latest()->paginate(10),
+            'transactions' => Payment::select('created_at', 'amount')->where('tenant_id', auth()->user()->tenant_id)->latest()->paginate(10),
             'balance' => auth()->user()->tenant->credit_balance,
         ]);
     }
