@@ -1,13 +1,13 @@
 <x-layouts.app>
-    <section class="relative bg-slate-900 pt-20 pb-32 overflow-hidden">
+    <section class="relative bg-slate-900 min-h-screen overflow-hidden flex items-center justify-center">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-10 pointer-events-none">
             <div class="absolute top-[-10%] left-1/4 w-96 h-96 bg-emerald-500 rounded-full blur-[120px]"></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-400 ring-1 ring-inset ring-emerald-500/20 mb-8">
+        {{--<span class="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-400 ring-1 ring-inset ring-emerald-500/20 mb-8">
             Now in Beta: Multi-Currency Support
-        </span>
+        </span>--}}
 
             <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
                 Invoicing for the modern <br/>
@@ -26,7 +26,7 @@
                 </a>
             </div>
 
-            <div class="mt-16 flow-root sm:mt-24">
+            {{--<div class="mt-16 flow-root sm:mt-24">
                 <div class="-m-2 rounded-xl bg-slate-800/50 p-2 ring-1 ring-inset ring-slate-700 lg:-m-4 lg:rounded-2xl lg:p-4 backdrop-blur-sm">
                     <div class="bg-slate-900 rounded-lg border border-slate-700 shadow-2xl overflow-hidden">
                         <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
     </section>
 </x-layouts.app>
