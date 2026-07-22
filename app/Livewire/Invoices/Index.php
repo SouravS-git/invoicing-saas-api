@@ -35,7 +35,7 @@ class Index extends Component
             match ($this->period) {
                 'today' => $query->whereDate('invoice_date', today()),
                 'this_week' => $query->whereBetween('invoice_date', [now()->startOfWeek(), now()->endOfWeek()]),
-                'this_month' => $query->whereMonth('invoice_date', now()->month),
+                'this_month' => $query->whereMonth('invoice_date', now()->month)->whereYear('invoice_date', now()->year),
                 'this_year' => $query->whereYear('invoice_date', now()->year),
                 default => $query,
             };
